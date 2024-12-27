@@ -39,7 +39,6 @@ public class MoonCreationSteps {
     @And("updated table contains new moon info in addition to old stuff")
     public void updated_table_contains_new_moon_info_in_addition_to_old_stuff() {
         
-        System.out.println("DEBUG: Navigating to /planetarium to ensure the updated table is present...");
         TestRunner.driver.get("http://localhost:8080/planetarium");
 
         WebDriverWait wait = new WebDriverWait(TestRunner.driver, Duration.ofSeconds(5));
@@ -51,7 +50,6 @@ public class MoonCreationSteps {
         );
 
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount (moon creation) = " + newRowCount);
 
         Assert.assertEquals(oldRowCount + 1, newRowCount);
     }
@@ -86,7 +84,6 @@ public class MoonCreationSteps {
     @And("table should stay the same")
     public void table_should_remain_unchanged() {
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount (invalid scenario) = " + newRowCount);
         Assert.assertEquals(oldRowCount, newRowCount);
     }
 }
