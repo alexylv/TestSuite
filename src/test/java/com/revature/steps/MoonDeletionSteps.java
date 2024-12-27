@@ -20,7 +20,6 @@ public class MoonDeletionSteps {
     public void user_inputs_valid_moon_deletion_data() {
         // get curr row count from table
         oldRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: oldRowCount (before deletion) = " + oldRowCount);
 
         // enter valid moon name into input bar
         WebElement deleteField = TestRunner.driver.findElement(By.id("deleteInput"));
@@ -61,7 +60,6 @@ public class MoonDeletionSteps {
     @When("user inputs invalid moon name to delete")
     public void user_inputs_invalid_moon_name_to_delete() {
         oldRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: oldRowCount (invalid scenario) = " + oldRowCount);
 
         WebElement deleteField = TestRunner.driver.findElement(By.id("deleteInput"));
         deleteField.clear();
@@ -79,7 +77,6 @@ public class MoonDeletionSteps {
         Alert alert = TestRunner.driver.switchTo().alert();
 
         String actualText = alert.getText();
-        System.out.println("DEBUG: Invalid alert text is: " + actualText);
         Assert.assertEquals("Invalid moon name", actualText);
 
         alert.accept(); 
@@ -87,10 +84,7 @@ public class MoonDeletionSteps {
 
     @And("table with moon info remains the same")
     public void table_with_moon_info_remains_the_same() {
-        
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount (invalid scenario) = " + newRowCount);
-
         Assert.assertEquals("Row count should remain unchanged", oldRowCount, newRowCount);
     }
 }
