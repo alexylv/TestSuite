@@ -44,11 +44,8 @@ public class TestRunner {
     @BeforeClass
     public static void setup() {
         
-        System.out.println("DEBUG: About to reset DB...");
         Setup.resetTestDatabase();
-        System.out.println("DEBUG: Finished reset DB call!");
-
-
+       
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         wait = new WebDriverWait(driver, Duration.ofSeconds(2));
