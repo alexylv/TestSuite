@@ -17,8 +17,6 @@ public class PlanetCreationSteps {
 
     @Given("user is on home page")
     public void user_is_on_home_page() {
-        System.out.println("DEBUG: Logging in as Batman to ensure we are on the home page.");
-
         // setting up a logged in user
         TestRunner.loginPage.setUpLoggedInUser();
 
@@ -29,7 +27,6 @@ public class PlanetCreationSteps {
 
     @When("user selects {string} from the dropdown")
     public void user_selects_from_the_dropdown(String optionValue) {
-        System.out.println("DEBUG: Waiting for #locationSelect to be visible...");
         TestRunner.wait.until(
             ExpectedConditions.visibilityOfElementLocated(By.id("locationSelect"))
         );
@@ -39,7 +36,6 @@ public class PlanetCreationSteps {
 
         Select select = new Select(dropdown);
         select.selectByValue(optionValue.toLowerCase()); 
-        System.out.println("DEBUG: Waiting for #planetNameInput after selecting " + optionValue);
 
         // Wait for planetNameInput to appear
         TestRunner.wait.until(
@@ -49,9 +45,7 @@ public class PlanetCreationSteps {
 
     @And("user inputs valid planet creation data")
     public void user_inputs_valid_planet_creation_data() {
-        System.out.println("DEBUG: Checking old row count...");
         oldRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: oldRowCount = " + oldRowCount);
 
         WebElement planetName = TestRunner.driver.findElement(By.id("planetNameInput"));
         planetName.clear();
@@ -67,8 +61,6 @@ public class PlanetCreationSteps {
 
     @Then("table refreshes")
     public void table_refreshes() {
-        System.out.println("DEBUG: Waiting for table to have more than oldRowCount = "
-                           + oldRowCount + " rows...");
         // waits for the number of <tr> elements to exceed oldRowCount
         TestRunner.wait.until(
             ExpectedConditions.numberOfElementsToBeMoreThan(By.tagName("tr"), oldRowCount)
@@ -77,8 +69,6 @@ public class PlanetCreationSteps {
 
     @And("updated table contains new planet info in addition to old stuff")
     public void updated_table_contains_new_planet_info_in_addition_to_old_stuff() {
-    
-        System.out.println("DEBUG: Navigating to /planetarium to ensure we're on the right page...");
         TestRunner.driver.get("http://localhost:8080/planetarium");
 
         TestRunner.wait.until(ExpectedConditions.textToBePresentInElementLocated(
@@ -87,10 +77,8 @@ public class PlanetCreationSteps {
 
 
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount = " + newRowCount);
 
         String currentPageSource = TestRunner.driver.getPageSource();
-        System.out.println("DEBUG: Page Source:\n" + currentPageSource);
 
         Assert.assertEquals(oldRowCount + 1, newRowCount);
     }
@@ -101,7 +89,6 @@ public class PlanetCreationSteps {
     @When("user inputs planet name {string}")
     public void user_inputs_planet_name(String name) {
         oldRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: oldRowCount = " + oldRowCount + " before invalid data scenario.");
 
         TestRunner.wait.until(
             ExpectedConditions.visibilityOfElementLocated(By.id("planetNameInput"))
@@ -155,7 +142,6 @@ public class PlanetCreationSteps {
     @And("table should remain unchanged")
     public void table_should_remain_unchanged() {
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount (invalid scenario) = " + newRowCount);
         Assert.assertEquals(oldRowCount, newRowCount);
     }
 }
