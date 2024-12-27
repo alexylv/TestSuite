@@ -7,7 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import com.revature.TestRunner; 
 
 public class Hooks {
-
+    // taking screenshot of failures
     @After
     public void takeScreenshotOnFailure(Scenario scenario) {
   
