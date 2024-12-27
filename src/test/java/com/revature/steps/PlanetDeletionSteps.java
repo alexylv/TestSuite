@@ -27,7 +27,6 @@ public class PlanetDeletionSteps {
 
     @Then("table with planet info refreshes")
     public void table_with_planet_info_refreshes() {
-        System.out.println("DEBUG: Navigating to /planetarium to confirm the updated planet table...");
         TestRunner.driver.get("http://localhost:8080/planetarium");
 
         WebDriverWait wait = new WebDriverWait(TestRunner.driver, Duration.ofSeconds(5));
@@ -36,8 +35,6 @@ public class PlanetDeletionSteps {
 
     @And("updated table no longer contains the deleted planet")
     public void updated_table_no_longer_contains_the_deleted_planet() {
-        System.out.println("DEBUG: Searching rows to confirm 'Earth' is gone...");
-
         List<WebElement> rows = TestRunner.driver.findElements(By.tagName("tr"));
         boolean foundPlanet = false;
 
@@ -87,7 +84,6 @@ public class PlanetDeletionSteps {
     @And("table with planet info remains the same")
     public void table_remains_the_same() {
         int newRowCount = TestRunner.homePage.getNumberOfCelestialRows();
-        System.out.println("DEBUG: newRowCount (invalid scenario) = " + newRowCount);
         Assert.assertEquals(oldRowCount, newRowCount);
     }
  }
